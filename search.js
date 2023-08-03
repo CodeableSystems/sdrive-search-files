@@ -3,7 +3,7 @@ import FormData from "form-data";
 import fs from "fs";
 import dotenv from "dotenv";
 dotenv.config();
-async function search(query) {
+async function search(query, page) {
   let formData = new FormData();
   let username = process.env.username;
   let apikey = process.env.apikey;
@@ -13,6 +13,7 @@ async function search(query) {
       username,
       apikey,
       query,
+      page,
     })
     .catch((error) => {
       const errorInfo = {
@@ -30,9 +31,9 @@ async function search(query) {
 // Example usage
 (async () => {
   try {
-    const response = await search("*.mp4");
+    const response = await search("*mp4", 1);
+    console.log(response);
     console.log(response.message.files);
-
   } catch (error) {
     console.error(error);
   }
